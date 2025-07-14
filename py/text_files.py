@@ -181,7 +181,8 @@ class SaveText(TextFileNode):
 
     def write_text(self, **kwargs):
         self.file = get_file(kwargs["root_dir"], kwargs["file"])
-        
+
+        mode = kwargs["append"]
         if kwargs["append"] == "new only" and os.path.exists(self.file):
             raise FileExistsError(f"{self.file} already exists and 'new only' is selected.")
     
@@ -202,7 +203,8 @@ class SaveText(TextFileNode):
                     {
                         "filename": filename,
                         "subfolder": subfolder,
-                        "type": self.type
+                        "type": self.type,
+                        "append": mode,
                     }
                 ]
             },
