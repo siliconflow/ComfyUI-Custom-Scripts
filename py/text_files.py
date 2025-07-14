@@ -195,6 +195,7 @@ class SaveText(TextFileNode):
     
         filename = os.path.basename(self.file)
         subfolder = ""
+        print("For get history...")
         return {
             "ui": {
                 "text": [
