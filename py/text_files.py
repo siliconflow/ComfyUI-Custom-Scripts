@@ -181,16 +181,34 @@ class SaveText(TextFileNode):
 
     def write_text(self, **kwargs):
         self.file = get_file(kwargs["root_dir"], kwargs["file"])
+        
         if kwargs["append"] == "new only" and os.path.exists(self.file):
-            raise FileExistsError(
-                self.file + " already exists and 'new only' is selected.")
-        with open(self.file, "a+" if kwargs["append"] == "append" else "w") as f:
+            raise FileExistsError(f"{self.file} already exists and 'new only' is selected.")
+    
+        with open(self.file, "a+" if kwargs["append"] == "append" else "w", encoding="utf-8") as f:
             is_append = f.tell() != 0
             if is_append and kwargs["insert"]:
                 f.write("\n")
             f.write(kwargs["text"])
+    
+        loaded_text = super().load_text(**kwargs)[0]  # ("text",)
+    
+        filename = os.path.basename(self.file)
+        subfolder = ""
+        return {
+            "ui": {
+                "text": [
+                    {
+                        "filename": filename,
+                        "subfolder": subfolder,
+                        "type": self.type
+                    }
+                ]
+            },
+            "text": loaded_text
+        }
 
-        return super().load_text(**kwargs)
+
 
 
 NODE_CLASS_MAPPINGS = {
