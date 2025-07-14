@@ -132,6 +132,10 @@ class LoadText(TextFileNode):
 
 
 class SaveText(TextFileNode):
+    def __init__(self):
+        self.type = "output"
+
+    RETURN_TYPES = ()
     OUTPUT_NODE = True
     
     @classmethod
