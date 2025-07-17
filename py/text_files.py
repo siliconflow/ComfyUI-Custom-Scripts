@@ -205,10 +205,10 @@ class SaveText(TextFileNode):
                         "subfolder": subfolder,
                         "type": self.type,
                         "append": mode,
+                        "content": loaded_text
                     }
                 ]
-            },
-            "text": loaded_text
+            }
         }
 
 
