@@ -183,7 +183,10 @@ class SaveText(TextFileNode):
         self.file = get_file(kwargs["root_dir"], kwargs["file"])
 
         mode = kwargs["append"]
+        print(os.path.exists(self.file))
+        print(self.file)
         if kwargs["append"] == "new only" and os.path.exists(self.file):
+            print(self.file)
             raise FileExistsError(f"{self.file} already exists and 'new only' is selected.")
     
         with open(self.file, "w", encoding="utf-8") as f:
