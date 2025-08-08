@@ -186,7 +186,7 @@ class SaveText(TextFileNode):
         if kwargs["append"] == "new only" and os.path.exists(self.file):
             raise FileExistsError(f"{self.file} already exists and 'new only' is selected.")
     
-        with open(self.file, "w", encoding="utf-8") as f:
+        with open(self.file, "a+" if kwargs["append"] == "append" else "w", encoding="utf-8") as f:
             is_append = f.tell() != 0
             if is_append and kwargs["insert"]:
                 f.write("\n")
